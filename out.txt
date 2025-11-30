@@ -1,0 +1,9 @@
+합계 52
+-rw-rw-r-- 1 kali kali   321 11월 30일  12:44 Makefile
+-rw-rw-r-- 1 kali kali     0 11월 30일  11:24 README.md
+drwxrwxr-x 2 kali kali  4096 11월 30일  12:55 include
+-rwxrwxr-x 1 kali kali 34712 11월 30일  13:11 myshell
+-rw-r--r-- 1 kali kali   631 11월 30일  13:14 myshell.log
+-rw-r--r-- 1 kali kali     0 11월 30일  13:15 out.txt
+drwxrwxr-x 2 kali kali  4096 11월 30일  13:11 src
+"append data"
