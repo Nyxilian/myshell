@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include <string.h>
 
-
 typedef struct {
     char *argv[MAX_ARGS];
     int argc;
