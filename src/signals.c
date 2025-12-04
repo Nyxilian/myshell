@@ -1,6 +1,4 @@
-#include <stdio.h>
-#include <signal.h>
-#include <sys/wait.h>
+
 #include "signals.h"
 
 void handle_sigchld(int sig) {

@@ -1,7 +1,3 @@
-#include <fcntl.h>
-#include <unistd.h>
-#include <stdio.h>
-#include <string.h>
 #include "logger.h"
 
 static int log_fd = -1;
