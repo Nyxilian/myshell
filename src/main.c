@@ -29,7 +29,7 @@ int main() {
         line[strcspn(line, "\n")] = 0;
 
         if (strcmp(line, "exit") == 0 || strcmp(line, "quit") == 0) {
-            break;
+            break;//exit check here to avoid parsing if possible
         }
 
         Pipeline *p = parse_line(line);

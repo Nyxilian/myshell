@@ -14,7 +14,7 @@ int handle_builtin(Command *cmd) {
         }
         
         if (chdir(path) != 0) {
-            perror("cd");
+            perror("cd error");
         }
         return 1; // Executed builtin
     }

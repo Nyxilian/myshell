@@ -70,7 +70,7 @@ Pipeline* parse_line(char *line) {
     if (!p) return NULL;
     
     int len = strlen(line);
-    if (len > 0 && line[len - 1] == '\n') line[--len] = '\0';
+    if (len > 0 && line[len - 1] == '\n') line[--len] = '\0';//fix fgets newline
     
     if (len > 0 && line[len - 1] == '&') {
         p->is_background = 1;

@@ -6,6 +6,5 @@
 #include <sys/wait.h>
 
 void setup_signals();
-void handle_sigchld(int sig);
 
 #endif

@@ -2,12 +2,14 @@
 #include "builtin.h"
 #include "logger.h"
 
+#define BUF_SIZE 1024
 
 void build_cmd_string(char *buffer, Command *cmd) {
     buffer[0] = '\0';
     for (int i = 0; i < cmd->argc; i++) {
-        strcat(buffer, cmd->argv[i]);
-        strcat(buffer, " ");
+        strncat(buffer, cmd->argv[i], BUF_SIZE - strlen(buffer) -1);
+        strncat(buffer, " ", BUF_SIZE - strlen(buffer) -1);
+    //added overflow preverntion
     }
 }
 
@@ -42,10 +44,11 @@ void execute_pipeline(Pipeline *p) {
             }
             
             if (execvp(cmd->argv[0], cmd->argv) < 0) {
-                perror("execvp");
+                fprintf(stderr, "execvp error: %s\n", cmd->argv[0]);//what exactly didnt run
                 exit(1);
             }
         } else if (pid > 0) {
+            signal(SIGINT, SIG_IGN);//parent ignores SIGINT
             int status = 0;
             if (!p->is_background) {
                 waitpid(pid, &status, 0);
@@ -56,18 +59,18 @@ void execute_pipeline(Pipeline *p) {
                 printf("[bg] started pid %d\n", pid);
             }
 
-            char cmd_buf[1024];
+            char cmd_buf[BUF_SIZE];
             build_cmd_string(cmd_buf, cmd);
             log_command(pid, cmd_buf, status);
 
         } else {
-            perror("fork");
+            perror("fork error");
         }
     }
     else if (p->command_count == 2) {
         int pipefd[2];
         if (pipe(pipefd) < 0) {
-            perror("pipe");
+            perror("pipe error");
             return;
         }
 
@@ -105,7 +108,7 @@ void execute_pipeline(Pipeline *p) {
         if (WIFEXITED(status1)) status1 = WEXITSTATUS(status1);
         if (WIFEXITED(status2)) status2 = WEXITSTATUS(status2);
 
-        char cmd_buf[1024];
+        char cmd_buf[BUF_SIZE];
         
         build_cmd_string(cmd_buf, &p->commands[0]);
         log_command(pid1, cmd_buf, status1);
