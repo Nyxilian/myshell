@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -Wall -Wextra -g -Iinclude
-SRC = src/main.c src/parse.c src/execute.c src/builtin.c src/signals.c src/logger.c
+SRC = $(wildcard src/*.c)
 OBJ = $(SRC:.c=.o)
 TARGET = myshell
 
