@@ -7,6 +7,7 @@
 #include <string.h>
 
 void init_logger();
+void close_logger();
 void log_command(int pid, char *cmd, int status);
 
 #endif

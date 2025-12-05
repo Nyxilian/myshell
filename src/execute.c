@@ -27,7 +27,7 @@ void execute_pipeline(Pipeline *p) {
             
             if (cmd->input_file) {
                 int fd = open(cmd->input_file, O_RDONLY);
-                if (fd < 0) { perror("open input"); exit(1); }
+                if (fd < 0) { perror("opening input error"); exit(1); }
                 dup2(fd, STDIN_FILENO);
                 close(fd);
             }
@@ -38,7 +38,7 @@ void execute_pipeline(Pipeline *p) {
                 else flags |= O_TRUNC;
                 
                 int fd = open(cmd->output_file, flags, 0644);
-                if (fd < 0) { perror("open output"); exit(1); }
+                if (fd < 0) { perror("opening output error"); exit(1); }
                 dup2(fd, STDOUT_FILENO);
                 close(fd);
             }

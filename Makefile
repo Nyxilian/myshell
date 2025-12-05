@@ -1,8 +1,10 @@
 CC = gcc
-CFLAGS = -Wall -Wextra -g -Iinclude
-SRC = $(wildcard src/*.c)
+CFLAGS = -Wall -Wextra -g -I$(INC_DIR)
+SRC = $(wildcard $(SRC_DIR)/*.c)
 OBJ = $(SRC:.c=.o)
 TARGET = myshell
+SRC_DIR = src
+INC_DIR = include
 LOG = myshell.log
 
 all: $(TARGET)
@@ -14,4 +16,4 @@ $(TARGET): $(OBJ)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 clean:
-	rm -f src/*.o $(TARGET) $(LOG)
+	rm -f $(SRC_DIR)/*.o $(TARGET) $(LOG)

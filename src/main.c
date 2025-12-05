@@ -20,6 +20,9 @@ int main() {
         fflush(stdout);
 
         if (fgets(line, sizeof(line), stdin) == NULL) {
+           if(ferror(stdin)) {
+               perror("fgets error");
+           }
             printf("\n");
             break;
         }
@@ -39,6 +42,7 @@ int main() {
             free_pipeline(p);
         }
     }
-
+    
+    close_logger();
     return 0;
 }
