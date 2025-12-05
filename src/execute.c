@@ -9,7 +9,7 @@ void build_cmd_string(char *buffer, Command *cmd) {
     for (int i = 0; i < cmd->argc; i++) {
         strncat(buffer, cmd->argv[i], BUF_SIZE - strlen(buffer) -1);
         strncat(buffer, " ", BUF_SIZE - strlen(buffer) -1);
-    //added overflow preverntion
+    //added overflow prevention
     }
 }
 
@@ -102,18 +102,31 @@ void execute_pipeline(Pipeline *p) {
         close(pipefd[1]);
         
         int status1 = 0, status2 = 0;
-        waitpid(pid1, &status1, 0);
-        waitpid(pid2, &status2, 0);
+        if(!p->is_background){
+            waitpid(pid1, &status1, 0);
+            waitpid(pid2, &status2, 0);
 
-        if (WIFEXITED(status1)) status1 = WEXITSTATUS(status1);
-        if (WIFEXITED(status2)) status2 = WEXITSTATUS(status2);
+            if (WIFEXITED(status1)) status1 = WEXITSTATUS(status1);
+            if (WIFEXITED(status2)) status2 = WEXITSTATUS(status2);
 
-        char cmd_buf[BUF_SIZE];
-        
-        build_cmd_string(cmd_buf, &p->commands[0]);
-        log_command(pid1, cmd_buf, status1);
+            char cmd_buf[BUF_SIZE];
+            
+            build_cmd_string(cmd_buf, &p->commands[0]);
+            log_command(pid1, cmd_buf, status1);
 
-        build_cmd_string(cmd_buf, &p->commands[1]);
-        log_command(pid2, cmd_buf, status2);
+            build_cmd_string(cmd_buf, &p->commands[1]);
+            log_command(pid2, cmd_buf, status2);
+        }
+        else {
+            printf("[bg] started pids %d, %d\n", pid1, pid2);
+            char cmd_buf[BUF_SIZE];
+            
+            build_cmd_string(cmd_buf, &p->commands[0]);
+            log_command(pid1, cmd_buf, -1);
+
+            build_cmd_string(cmd_buf, &p->commands[1]);
+            log_command(pid2, cmd_buf, -1);
+            //-1 status for background, i couldnt find a good way to handle it
+        }
     }
 }

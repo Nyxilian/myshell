@@ -1,7 +1,3 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
 #include "parse.h"
 #include "execute.h"
 #include "signals.h"
@@ -42,7 +38,7 @@ int main() {
             free_pipeline(p);
         }
     }
-    
+
     close_logger();
     return 0;
 }

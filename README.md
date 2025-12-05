@@ -38,6 +38,7 @@ To start the shell, run:
 ------------------------------------------
 
 #Known Limitations
+Logging backgroud exit status for piped processes
 
 ------------------------------------------
 
