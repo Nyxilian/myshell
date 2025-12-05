@@ -1,7 +1,7 @@
 #MyShell Project
 
 Group:  
-    Hanmin Choi
+    Hamin Choi
     Alek Rigney
 
 Course:
